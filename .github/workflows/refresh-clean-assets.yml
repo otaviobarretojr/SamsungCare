@@ -33,7 +33,7 @@ jobs:
             ("Galaxy A17 5G","assets/products/aentry/galaxy-a17-5g.png","https://images.samsung.com/is/image/samsung/p6pim/br/sm-a176bzaozto/gallery/br-galaxy-a17-5g-sm-a176-sm-a176bzaozto-548807141?$1164_776_PNG$"),
             ("Galaxy Tab S11 Ultra","assets/products/tabs/galaxy-tab-s11-ultra.png","https://images.samsung.com/is/image/samsung/p6pim/br/sm-x930nzahzto/gallery/br-galaxy-tab-s11-ultra-sm-x930-sm-x930nzahzto-548653896?$1164_776_PNG$"),
             ("Galaxy Tab A11+","assets/products/taba/galaxy-tab-a11-plus-5g.png","https://images.samsung.com/is/image/samsung/p6pim/br/sm-x236bzaazto/gallery/br-galaxy-tab-a11-plus-sm-x230-sm-x236bzaazto-550174385?$1164_776_PNG$"),
-            ("Galaxy Book Go","assets/products/bookgo/galaxy-book-go.png","https://images.samsung.com/is/image/samsung/p6pim/br/np340xla-k09br/gallery/br-galaxy-book-go-np340xlaa-552529-np340xla-k09br-547340213?$1164_776_PNG$"),
+            ("Galaxy Book Go","assets/products/bookgo/galaxy-book-go.png","https://images.samsung.com/is/image/samsung/p6pim/br/np340xla-k09br/gallery/br-galaxy-book-go-np340xlaa-552529-np340xla-k09br-547306366?$1164_776_PNG$"),
           ]
           h={"User-Agent":"Mozilla/5.0","Accept":"image/avif,image/webp,image/apng,image/*,*/*;q=0.8"}
           for name,path,url in items:
