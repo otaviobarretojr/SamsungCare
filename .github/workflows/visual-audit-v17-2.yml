@@ -1,4 +1,5 @@
 name: Visual audit v17.2 transparent assets
+# rerun: final-polish
 
 on:
   push:
