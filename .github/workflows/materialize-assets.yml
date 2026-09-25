@@ -1,0 +1,94 @@
+name: Materialize Samsung product assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/materialize-assets.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PWA branch
+        uses: actions/checkout@v4
+        with:
+          ref: pwa-v17-galaxy-experience
+          fetch-depth: 0
+
+      - name: Install image dependencies
+        run: python -m pip install --quiet pillow requests
+
+      - name: Download and normalize official renders
+        shell: python
+        run: |
+          from pathlib import Path
+          from io import BytesIO
+          import requests
+          from PIL import Image
+
+          items = [
+            ("Galaxy Z Fold8 Ultra","assets/products/zfold/galaxy-z-fold8-ultra.png","https://samsungbrshop.vtexassets.com/arquivos/ids/294698-800-auto?v=639211285173730000",None),
+            ("Galaxy Z Flip8","assets/products/zflip/galaxy-z-flip8.png","https://samsungbrshop.vtexassets.com/arquivos/ids/294844-800-auto?v=639211344956630000",None),
+            ("Galaxy S26 Ultra","assets/products/s/galaxy-s26-ultra.png","https://samsungbrshop.vtexassets.com/arquivos/ids/278468-800-auto?v=639076206131900000",None),
+            ("Galaxy S26 FE","assets/products/sfe/galaxy-s26-fe.png","https://images.samsung.com/is/image/samsung/p6pim/br/sm-s741bzkjzto/gallery/br-galaxy-s26-fe-sm-s741-sm-s741bzkjzto-554433831?$1164_776_PNG$",None),
+            ("Galaxy A57 5G","assets/products/a/galaxy-a57-5g.png","https://images.samsung.com/is/image/samsung/p6pim/br/sm-a576bzafzto/gallery/br-galaxy-a57-5g-sm-a576-585544-sm-a576bzafzto-552168910?$1164_776_PNG$",None),
+            ("Galaxy A17 5G","assets/products/aentry/galaxy-a17-5g.png","https://samsungbrshop.vtexassets.com/arquivos/ids/266302-800-auto?v=638926744702900000",None),
+            ("Galaxy Tab S11 Ultra","assets/products/tabs/galaxy-tab-s11-ultra.png","https://images.samsung.com/is/image/samsung/p6pim/br/sm-x930nzahzto/gallery/br-galaxy-tab-s11-ultra-sm-x930-sm-x930nzahzto-548653886?$1164_776_PNG$","https://images.samsung.com/is/image/samsung/p6pim/br/sm-x930nzahzto/gallery/br-galaxy-tab-s11-ultra-sm-x930-sm-x930nzahzto-thumb-548653886?$104_104_PNG$"),
+            ("Galaxy Tab A11+ 5G","assets/products/taba/galaxy-tab-a11-plus-5g.png","https://images.samsung.com/is/image/samsung/p6pim/br/sm-x236bzaazto/gallery/br-galaxy-tab-a11-plus-sm-x230-sm-x236bzaazto-550174383?$1164_776_PNG$","https://shop.samsung.com/latin/cac/pub/media/catalog/product/g/a/galaxy-tab-a11-plus_001_product-image_combo_thumb.png"),
+            ('Galaxy Book6 (14")',"assets/products/book/galaxy-book6.png","https://images.samsung.com/is/image/samsung/p6pim/br/np740vjg-la3br/gallery/br-galaxy-book6-14-inch-np740vjgf-600690-np740vjg-la3br-553876209?$1164_776_PNG$",None),
+            ('Galaxy Book6 Ultra (16")',"assets/products/bookultra/galaxy-book6-ultra.png","https://images.samsung.com/is/image/samsung/p6pim/br/np960ujh-yg1br/gallery/br-galaxy-book6-ultra-16-inch-np960ujhe-np960ujh-yg1br-553879477?$1164_776_PNG$",None),
+            ('Galaxy Book Go (14")',"assets/products/bookgo/galaxy-book-go.png","https://images.samsung.com/is/image/samsung/p6pim/br/np340xla-k0abr/gallery/br-samsung-book-np340xla-k0abr-front-silver-547344185?$1164_776_PNG$",None),
+            ("Galaxy Watch9 44mm","assets/products/watch/galaxy-watch9-44mm.png","https://shop.samsung.com/latin/cac/pub/media/catalog/product/f/9/f9_000_set-cut-all-44mm.png",None),
+            ("Galaxy Buds4 Pro","assets/products/buds/galaxy-buds4-pro.png","https://samsungbrshop.vtexassets.com/arquivos/ids/279088-800-auto?v=639076254339170000",None),
+          ]
+          headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/153 Safari/537.36","Accept":"image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"}
+          failures=[]
+          for name,path,primary,fallback in items:
+              ok=False
+              for url in [primary,fallback]:
+                  if not url: continue
+                  try:
+                      r=requests.get(url,headers=headers,timeout=30)
+                      r.raise_for_status()
+                      if len(r.content)<1000: raise RuntimeError(f"payload too small: {len(r.content)}")
+                      im=Image.open(BytesIO(r.content))
+                      im.load()
+                      if im.mode not in ("RGB","RGBA"): im=im.convert("RGBA")
+                      dst=Path(path); dst.parent.mkdir(parents=True,exist_ok=True)
+                      im.save(dst,"PNG",optimize=True)
+                      print(f"{name}: {im.size[0]}x{im.size[1]} -> {dst}")
+                      ok=True
+                      break
+                  except Exception as e:
+                      print(f"{name}: failed {url}: {e}")
+              if not ok: failures.append(name)
+          if failures:
+              raise SystemExit("Failed assets: "+", ".join(failures))
+
+      - name: Verify 13 local PNG assets
+        shell: python
+        run: |
+          from pathlib import Path
+          from PIL import Image
+          files=list(Path("assets/products").glob("*/*.png"))
+          assert len(files)==13, f"expected 13 PNGs, got {len(files)}"
+          for p in files:
+              im=Image.open(p); im.verify()
+              assert p.stat().st_size > 1000, p
+              print(p, p.stat().st_size)
+
+      - name: Commit assets to PWA branch
+        run: |
+          git config user.name "SamsungCare Asset Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/products
+          if git diff --cached --quiet; then
+            echo "No asset changes."
+            exit 0
+          fi
+          git commit -m "feat: materialize official Samsung product renders"
+          git push origin HEAD:pwa-v17-galaxy-experience
