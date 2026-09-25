@@ -1,0 +1,10 @@
+{
+  "name": "Samsung Care+ Galaxy Experience",
+  "short_name": "Care+ Galaxy",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "lang": "pt-BR",
+  "description": "Catálogo Samsung Care+ para consulta e compartilhamento de proteções Galaxy"
+}

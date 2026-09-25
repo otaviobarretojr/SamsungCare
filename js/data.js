@@ -1,0 +1,60 @@
+window.CARE_DATA = {
+  "families": [
+    {"id":"zflip","name":"Galaxy Z Flip","subtitle":"Linha Galaxy Z Flip","ge":629,"tela":699,"da":799,"rf":949,"combo":1199,"ngc":1799},
+    {"id":"zfold","name":"Galaxy Z Fold","subtitle":"Linha Galaxy Z Fold","ge":1029,"tela":1299,"da":1239,"rf":3099,"combo":3899,"ngc":3969},
+    {"id":"s","name":"Galaxy S","subtitle":"Linha Galaxy S","ge":629,"da":799,"rf":949,"combo":1199,"ngc":1799},
+    {"id":"sfe","name":"Galaxy S FE","subtitle":"Linha Galaxy S FE","ge":429,"da":599,"rf":699,"combo":799},
+    {"id":"a","name":"Galaxy A Intermediários","subtitle":"A34–A37 • A54–A57 • M34/M35/M54/M55","ge":229,"da":269,"rf":349,"combo":429},
+    {"id":"aentry","name":"Galaxy A Essenciais","subtitle":"A03–A06 • A14–A16 • A24/A25 • M14/M15","ge":119,"da":159,"rf":199,"combo":269},
+    {"id":"tabs","name":"Galaxy Tab S","subtitle":"Tab S11 • S10 • S9 • S6","ge":260,"da":399,"rf":499,"combo":699},
+    {"id":"taba","name":"Galaxy Tab A","subtitle":"Tab A9 • A8 • A7","ge":136,"da":187,"rf":181,"combo":352},
+    {"id":"book","name":"Galaxy Book","subtitle":"Linha Galaxy Book tradicional","ge":999,"da":459,"rf":1029,"combo":1199},
+    {"id":"bookultra","name":"Galaxy Book Ultra","subtitle":"Linha Galaxy Book Ultra","ge":999,"da":459,"rf":619,"combo":1099},
+    {"id":"bookgo","name":"Galaxy Book Go","subtitle":"Book Go • Chromebook Go","ge":439,"da":159,"rf":459,"combo":539},
+    {"id":"watch","name":"Galaxy Watch","subtitle":"Linha Galaxy Watch e Fit3","ge":163,"da":250,"rf":286,"combo":497},
+    {"id":"buds","name":"Galaxy Buds","subtitle":"Linha Galaxy Buds","ge":149,"da":199,"rf":199,"combo":279}
+  ],
+  "franchise": {
+    "zflip":{"ge":0,"tela":749,"da":1100,"rf":1125,"combo":{"da":1100,"rf":1125},"ngc":"consult"},
+    "zfold":{"ge":0,"tela":1799,"da":2600,"rf":2600,"combo":{"da":2600,"rf":2600},"ngc":"consult"},
+    "s":{"ge":0,"da":400,"rf":1125,"combo":{"da":400,"rf":1125},"ngc":"consult"},
+    "sfe":{"ge":0,"da":400,"rf":1125,"combo":{"da":400,"rf":1125}},
+    "a":{"ge":0,"da":510,"rf":600,"combo":{"da":510,"rf":600}},
+    "aentry":{"ge":0,"da":330,"rf":400,"combo":{"da":330,"rf":400}},
+    "tabs":{"ge":0,"da":720,"rf":699,"combo":{"da":720,"rf":699}},
+    "taba":{"ge":0,"da":399,"rf":341,"combo":{"da":399,"rf":341}},
+    "book":{"ge":0,"da":799,"rf":2049,"combo":{"da":799,"rf":2049}},
+    "bookultra":{"ge":0,"da":499,"rf":1229,"combo":{"da":499,"rf":1229}},
+    "bookgo":{"ge":0,"da":329,"rf":819,"combo":{"da":329,"rf":819}},
+    "watch":{"ge":0,"da":369,"rf":452,"combo":{"da":369,"rf":452}},
+    "buds":{"ge":0,"da":199,"rf":249,"combo":{"da":199,"rf":249}}
+  },
+  "plans": {
+    "ge":{"name":"Garantia Estendida","short":"+12 meses após a garantia original","term":"12 meses adicionais","events":"Defeitos funcionais/mecânicos cobertos","icon":"shield-check"},
+    "tela":{"name":"Tela Protegida","short":"Proteção focada em danos cobertos na tela","term":"12 meses","events":"Conforme condições do plano","icon":"screen"},
+    "da":{"name":"Danos Acidentais","short":"Quedas, impactos, líquidos e oxidação cobertos","term":"12 meses","events":"Até 2 eventos, conforme condições","icon":"drop"},
+    "rf":{"name":"Roubo ou Furto Qualificado","short":"Proteção financeira para ocorrência coberta","term":"12 meses","events":"1 evento coberto","icon":"lock"},
+    "combo":{"name":"Proteção Completa","short":"Danos acidentais + roubo ou furto qualificado","term":"12 meses","events":"Até 2 danos + 1 roubo/furto qualificado","icon":"spark-shield"},
+    "ngc":{"name":"Proteção Completa + Upgrade","short":"Samsung Care+ associado aos benefícios do New Galaxy Club","term":"90 a 540 dias para upgrade","events":"Até 50% na Troca Smart, conforme condições","icon":"upgrade"}
+  },
+  "models": {
+    "zfold":{"model":"Galaxy Z Fold8 Ultra","local":"assets/products/zfold/galaxy-z-fold8-ultra.png","remote":"https://samsungbrshop.vtexassets.com/arquivos/ids/294698-800-auto?v=639211285173730000","page":"https://shop.samsung.com/br/galaxy-z-fold8-ultra/p","generation":"2026","color":"Preto","notes":"Flagship atual da família Z Fold. Usar object-fit:contain e fundo branco/transparent-like."},
+    "zflip":{"model":"Galaxy Z Flip8","local":"assets/products/zflip/galaxy-z-flip8.png","remote":"https://samsungbrshop.vtexassets.com/arquivos/ids/294844-800-auto?v=639211344956630000","page":"https://shop.samsung.com/br/galaxy-z-flip8/p","generation":"2026","color":"Rosa","notes":"Representa melhor o formato dobrável do que uma vista única."},
+    "s":{"model":"Galaxy S26 Ultra","local":"assets/products/s/galaxy-s26-ultra.png","remote":"https://samsungbrshop.vtexassets.com/arquivos/ids/278468-800-auto?v=639076206131900000","page":"https://shop.samsung.com/br/galaxy-s26-ultra/p","generation":"2026","color":"Violeta","notes":"Flagship da série S e melhor representação premium."},
+    "sfe":{"model":"Galaxy S26 FE","local":"assets/products/sfe/galaxy-s26-fe.png","remote":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-s741bzkjzto/gallery/br-galaxy-s26-fe-sm-s741-sm-s741bzkjzto-554433831?$1164_776_PNG$","page":"https://www.samsung.com/br/smartphones/galaxy-s/galaxy-s26-fe-graphite-128gb-sm-s741bzkjzto/","generation":"2026","color":"Grafite","notes":"Manter separada da família S principal para coerência com preços do app."},
+    "a":{"model":"Galaxy A57 5G","local":"assets/products/a/galaxy-a57-5g.png","remote":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-a576bzafzto/gallery/br-galaxy-a57-5g-sm-a576-585544-sm-a576bzafzto-552168910?$1164_776_PNG$","page":"https://www.samsung.com/br/smartphones/galaxy-a/galaxy-a57-5g-awesome-gray-256gb-sm-a576bzafzto/","generation":"2026","color":"Cinza","notes":"Modelo de referência atual para a faixa A intermediária/premium."},
+    "aentry":{"model":"Galaxy A17 5G","local":"assets/products/aentry/galaxy-a17-5g.png","remote":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-a176bzaozto/gallery/br-galaxy-a17-5g-sm-a176-sm-a176bzaozto-548807141?$1164_776_PNG$","page":"https://shop.samsung.com/br/galaxy-a17-5g/p","generation":"2025/2026","color":"Cinza","notes":"Substitui o A16 como referência visual da família essencial."},
+    "tabs":{"model":"Galaxy Tab S11 Ultra","local":"assets/products/tabs/galaxy-tab-s11-ultra.png","remote":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-x930nzahzto/gallery/br-galaxy-tab-s11-ultra-sm-x930-sm-x930nzahzto-548653896?$1164_776_PNG$","page":"https://www.samsung.com/br/tablets/galaxy-tab-s/galaxy-tab-s11-ultra-gray-512gb-sm-x930nzahzto/","generation":"2025/2026","color":"Cinza","notes":"URL principal segue o endpoint oficial da mesma imagem de galeria validada pelo thumbnail."},
+    "taba":{"model":"Galaxy Tab A11+ 5G","local":"assets/products/taba/galaxy-tab-a11-plus-5g.png","remote":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-x236bzaazto/gallery/br-galaxy-tab-a11-plus-sm-x230-sm-x236bzaazto-550174385?$1164_776_PNG$","page":"https://www.samsung.com/br/tablets/galaxy-tab-a/galaxy-tab-a11-plus-gray-128gb-sm-x236bzaazto/","generation":"2025/2026","color":"Cinza","notes":"Usar a URL Brasil em produção; fallback Samsung Latin já validado."},
+    "book":{"model":"Galaxy Book6 (14\")","local":"assets/products/book/galaxy-book6.png","remote":"https://images.samsung.com/is/image/samsung/p6pim/br/np740vjg-la3br/gallery/br-galaxy-book6-14-inch-np740vjgf-600690-np740vjg-la3br-553876209?$1164_776_PNG$","page":"https://www.samsung.com/br/computers/notebook/galaxy-book6-14-inch-u5-ultra-5-16gb-512gb-np740vjg-la3br/","generation":"2026","color":"Grafite","notes":"Referência da linha Book tradicional atual."},
+    "bookultra":{"model":"Galaxy Book6 Ultra (16\")","local":"assets/products/bookultra/galaxy-book6-ultra.png","remote":"https://images.samsung.com/is/image/samsung/p6pim/br/np960ujh-yg1br/gallery/br-galaxy-book6-ultra-16-inch-np960ujhe-np960ujh-yg1br-553879477?$1164_776_PNG$","page":"https://www.samsung.com/br/computers/samsung-book/galaxy-book6-ultra-ultra-7-32gb-1tb-np960ujh-yg1br/","generation":"2026","color":"Grafite","notes":"Flagship atual da linha Galaxy Book."},
+    "bookgo":{"model":"Galaxy Book Go (14\")","local":"assets/products/bookgo/galaxy-book-go.png","remote":"https://images.samsung.com/is/image/samsung/p6pim/br/np340xla-k09br/gallery/br-galaxy-book-go-np340xlaa-552529-np340xla-k09br-thumb-547306366?$1164_776_PNG$","page":"https://www.samsung.com/br/computers/samsung-book/galaxy-book-go-7c-gen2-4gb-128gb-np340xla-k0abr/","generation":"linha vigente","color":"Prata","notes":"Mantido porque o app trata Book Go como segmento próprio."},
+    "watch":{"model":"Galaxy Watch9 44mm","local":"assets/products/watch/galaxy-watch9-44mm.png","remote":"https://shop.samsung.com/latin/cac/pub/media/catalog/product/f/9/f9_000_set-cut-all-44mm.png","page":"https://www.samsung.com/br/watches/galaxy-watch/galaxy-watch9-44mm-graphite-bluetooth-sm-l350nzkpzto/","generation":"2026","color":"Grafite","notes":"Escolhido como referência da família Watch padrão. Ultra2 pode virar um segmento premium separado depois."},
+    "buds":{"model":"Galaxy Buds4 Pro","local":"assets/products/buds/galaxy-buds4-pro.png","remote":"https://samsungbrshop.vtexassets.com/arquivos/ids/279088-800-auto?v=639076254339170000","page":"https://shop.samsung.com/br/galaxy-buds4-pro/p","generation":"2026","color":"Branco","notes":"Flagship atual de áudio Galaxy."}
+  },
+  "category":{"zflip":"Dobrável compacto","zfold":"Dobrável premium","s":"Smartphone premium","sfe":"Galaxy FE","a":"Galaxy A intermediário","aentry":"Galaxy A essencial","tabs":"Tablet premium","taba":"Tablet essencial","book":"Notebook Galaxy","bookultra":"Notebook de alta performance","bookgo":"Mobilidade","watch":"Wearable Galaxy","buds":"Áudio Galaxy"},
+  "lineCopy":{"zflip":"Design dobrável compacto com experiência Galaxy AI.","zfold":"Tela grande e produtividade em um dobrável premium.","s":"Experiência Galaxy S com AI, câmera e desempenho de ponta.","sfe":"Recursos Galaxy em uma proposta Fan Edition.","a":"Design e recursos inteligentes na linha Galaxy A.","aentry":"Essenciais Galaxy para o dia a dia.","tabs":"Produtividade, S Pen e experiência premium em tablet.","taba":"Experiência Galaxy Tab prática para o dia a dia.","book":"Produtividade e integração com o ecossistema Galaxy.","bookultra":"Performance avançada para criação e produtividade intensa.","bookgo":"Mobilidade e conectividade em um Galaxy Book leve.","watch":"Saúde, bem-estar e inteligência no pulso.","buds":"Áudio imersivo integrado ao ecossistema Galaxy."},
+  "ngcEligible":{"zflip":"Galaxy Z Flip8 e Galaxy Z Flip7 (conforme tabela/condições vigentes)","zfold":"Galaxy Z Fold8 Ultra, Z Fold8 e Z Fold7 (preço somente quando autorizado pela tabela comercial)","s":"Galaxy S26, Galaxy S26+ e Galaxy S26 Ultra"},
+  "groups":[{"title":"Smartphones Galaxy","ids":["zflip","zfold","s","sfe","a","aentry"]},{"title":"Galaxy Tab","ids":["tabs","taba"]},{"title":"Galaxy Book","ids":["book","bookultra","bookgo"]},{"title":"Wearables e áudio","ids":["watch","buds"]}],
+  "meta":{"priceTableDate":"31/08/2026","installments":10,"version":"17.1.0","brand":"Samsung Care+"}
+};
