@@ -12,7 +12,7 @@ $items = @(
   @('Galaxy Tab A11+ 5G','assets\products\taba\galaxy-tab-a11-plus-5g.png','https://images.samsung.com/is/image/samsung/p6pim/br/sm-x236bzaazto/gallery/br-galaxy-tab-a11-plus-sm-x230-sm-x236bzaazto-550174385?$1164_776_PNG$'),
   @('Galaxy Book6 (14")','assets\products\book\galaxy-book6.png','https://images.samsung.com/is/image/samsung/p6pim/br/np740vjg-la3br/gallery/br-galaxy-book6-14-inch-np740vjgf-600690-np740vjg-la3br-553876209?$1164_776_PNG$'),
   @('Galaxy Book6 Ultra (16")','assets\products\bookultra\galaxy-book6-ultra.png','https://images.samsung.com/is/image/samsung/p6pim/br/np960ujh-yg1br/gallery/br-galaxy-book6-ultra-16-inch-np960ujhe-np960ujh-yg1br-553879477?$1164_776_PNG$'),
-  @('Galaxy Book Go (14")','assets\products\bookgo\galaxy-book-go.png','https://images.samsung.com/is/image/samsung/p6pim/br/np340xla-k09br/gallery/br-galaxy-book-go-np340xlaa-552529-np340xla-k09br-547306366?$1164_776_PNG$'),
+  @('Galaxy Book Go (14")','assets\products\bookgo\galaxy-book-go.png','https://images.samsung.com/is/image/samsung/p6pim/br/np340xla-k09br/gallery/br-galaxy-book-go-np340xlaa-552529-np340xla-k09br-thumb-547306366?$1164_776_PNG$'),
   @('Galaxy Watch9 44mm','assets\products\watch\galaxy-watch9-44mm.png','https://shop.samsung.com/latin/cac/pub/media/catalog/product/f/9/f9_000_set-cut-all-44mm.png'),
   @('Galaxy Buds4 Pro','assets\products\buds\galaxy-buds4-pro.png','https://samsungbrshop.vtexassets.com/arquivos/ids/279088-800-auto?v=639076254339170000')
 )
