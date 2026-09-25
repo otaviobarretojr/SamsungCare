@@ -27,7 +27,7 @@ jobs:
       - name: Render audit screenshots
         run: |
           python3 -m http.server 4173 >/tmp/care-http.log 2>&1 &
-          cat > /tmp/audit.mjs <<'JS'
+          cat > audit-runner.mjs <<'JS'
           import { chromium } from 'playwright';
           import fs from 'fs';
           const browser=await chromium.launch({headless:true});
@@ -73,7 +73,7 @@ jobs:
           await browser.close();
           JS
           mkdir -p audit
-          node /tmp/audit.mjs
+          node audit-runner.mjs
 
       - name: Upload audit
         uses: actions/upload-artifact@v4
