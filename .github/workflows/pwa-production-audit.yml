@@ -1,0 +1,71 @@
+name: PWA production audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pwa-production-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Audit installability and offline behavior
+        run: |
+          python3 -m http.server 4173 >/tmp/http.log 2>&1 &
+          cat > pwa-audit.mjs <<'JS'
+          import { chromium } from 'playwright';
+          const browser=await chromium.launch({headless:true});
+          const context=await browser.newContext({viewport:{width:390,height:844}});
+          const page=await context.newPage();
+          const errors=[]; page.on('pageerror',e=>errors.push(String(e)));
+          await page.goto('http://127.0.0.1:4173/index.html',{waitUntil:'networkidle'});
+          const online=await page.evaluate(async()=>{
+            const manifestHref=document.querySelector('link[rel="manifest"]')?.href;
+            const manifest=manifestHref?await fetch(manifestHref).then(r=>r.json()):null;
+            const reg=await navigator.serviceWorker.ready;
+            const cards=[...document.querySelectorAll('.family-card img')];
+            return {
+              manifest,
+              swScope:reg.scope,
+              cards:cards.length,
+              loaded:cards.filter(i=>i.complete&&i.naturalWidth>0).length,
+              width:[document.documentElement.scrollWidth,document.documentElement.clientWidth]
+            };
+          });
+          if(!online.manifest) throw new Error('manifest missing');
+          if((online.manifest.icons||[]).length<3) throw new Error('manifest icons missing');
+          if(online.cards!==13 || online.loaded!==13) throw new Error('family images incomplete');
+          if(online.width[0]!==online.width[1]) throw new Error('horizontal overflow');
+          const iconChecks=await page.evaluate(async()=>{
+            const m=await fetch(document.querySelector('link[rel="manifest"]').href).then(r=>r.json());
+            return Promise.all(m.icons.map(async i=>({src:i.src,status:(await fetch(i.src)).status})));
+          });
+          if(iconChecks.some(x=>x.status!==200)) throw new Error('icon fetch failed '+JSON.stringify(iconChecks));
+          await page.waitForTimeout(800);
+          await context.setOffline(true);
+          await page.reload({waitUntil:'domcontentloaded'});
+          const offline=await page.evaluate(()=>({
+            title:document.title,
+            cards:document.querySelectorAll('.family-card').length,
+            loaded:[...document.querySelectorAll('.family-card img')].filter(i=>i.complete&&i.naturalWidth>0).length,
+            bodyText:document.body.innerText.includes('Proteção oficial para o seu Galaxy')
+          }));
+          if(offline.cards!==13 || offline.loaded!==13 || !offline.bodyText) throw new Error('offline PWA incomplete '+JSON.stringify(offline));
+          if(errors.length) throw new Error('page errors '+JSON.stringify(errors));
+          console.log(JSON.stringify({online,iconChecks,offline,errors},null,2));
+          await browser.close();
+          JS
+          node pwa-audit.mjs
