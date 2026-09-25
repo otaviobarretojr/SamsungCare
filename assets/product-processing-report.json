@@ -1,0 +1,327 @@
+[
+  {
+    "file": "assets/products/a/galaxy-a57-5g.png",
+    "original": [
+      1164,
+      776
+    ],
+    "output": [
+      623,
+      738
+    ],
+    "border_reference": [
+      0,
+      0,
+      0
+    ],
+    "removed_pixels": 1197,
+    "transparent_pixels_before": 530549,
+    "alpha_bbox": [
+      301,
+      49,
+      864,
+      727
+    ],
+    "bytes": 118027
+  },
+  {
+    "file": "assets/products/aentry/galaxy-a17-5g.png",
+    "original": [
+      1164,
+      776
+    ],
+    "output": [
+      633,
+      752
+    ],
+    "border_reference": [
+      0,
+      0,
+      0
+    ],
+    "removed_pixels": 579,
+    "transparent_pixels_before": 519695,
+    "alpha_bbox": [
+      297,
+      43,
+      868,
+      733
+    ],
+    "bytes": 156244
+  },
+  {
+    "file": "assets/products/book/galaxy-book6.png",
+    "original": [
+      1164,
+      776
+    ],
+    "output": [
+      962,
+      733
+    ],
+    "border_reference": [
+      0,
+      0,
+      0
+    ],
+    "removed_pixels": 6043,
+    "transparent_pixels_before": 417075,
+    "alpha_bbox": [
+      140,
+      61,
+      1024,
+      716
+    ],
+    "bytes": 366475
+  },
+  {
+    "file": "assets/products/bookgo/galaxy-book-go.png",
+    "original": [
+      1164,
+      776
+    ],
+    "output": [
+      273,
+      232
+    ],
+    "border_reference": [
+      0,
+      0,
+      0
+    ],
+    "removed_pixels": 429,
+    "transparent_pixels_before": 871069,
+    "alpha_bbox": [
+      456,
+      283,
+      707,
+      493
+    ],
+    "bytes": 58251
+  },
+  {
+    "file": "assets/products/bookultra/galaxy-book6-ultra.png",
+    "original": [
+      1164,
+      776
+    ],
+    "output": [
+      1104,
+      832
+    ],
+    "border_reference": [
+      0,
+      0,
+      0
+    ],
+    "removed_pixels": 3022,
+    "transparent_pixels_before": 283282,
+    "alpha_bbox": [
+      75,
+      17,
+      1089,
+      759
+    ],
+    "bytes": 440332
+  },
+  {
+    "file": "assets/products/buds/galaxy-buds4-pro.png",
+    "original": [
+      800,
+      800
+    ],
+    "output": [
+      569,
+      780
+    ],
+    "border_reference": [
+      255,
+      255,
+      255
+    ],
+    "removed_pixels": 448201,
+    "transparent_pixels_before": 0,
+    "alpha_bbox": [
+      148,
+      52,
+      653,
+      768
+    ],
+    "bytes": 109120
+  },
+  {
+    "file": "assets/products/s/galaxy-s26-ultra.png",
+    "original": [
+      800,
+      800
+    ],
+    "output": [
+      692,
+      700
+    ],
+    "border_reference": [
+      255,
+      255,
+      255
+    ],
+    "removed_pixels": 294583,
+    "transparent_pixels_before": 0,
+    "alpha_bbox": [
+      82,
+      78,
+      718,
+      722
+    ],
+    "bytes": 211704
+  },
+  {
+    "file": "assets/products/sfe/galaxy-s26-fe.png",
+    "original": [
+      1164,
+      776
+    ],
+    "output": [
+      620,
+      738
+    ],
+    "border_reference": [
+      0,
+      0,
+      0
+    ],
+    "removed_pixels": 3314,
+    "transparent_pixels_before": 536337,
+    "alpha_bbox": [
+      300,
+      49,
+      860,
+      727
+    ],
+    "bytes": 104198
+  },
+  {
+    "file": "assets/products/taba/galaxy-tab-a11-plus-5g.png",
+    "original": [
+      1164,
+      776
+    ],
+    "output": [
+      811,
+      556
+    ],
+    "border_reference": [
+      0,
+      0,
+      0
+    ],
+    "removed_pixels": 4789,
+    "transparent_pixels_before": 543011,
+    "alpha_bbox": [
+      209,
+      143,
+      954,
+      633
+    ],
+    "bytes": 134027
+  },
+  {
+    "file": "assets/products/tabs/galaxy-tab-s11-ultra.png",
+    "original": [
+      1164,
+      776
+    ],
+    "output": [
+      1115,
+      748
+    ],
+    "border_reference": [
+      0,
+      0,
+      0
+    ],
+    "removed_pixels": 5971,
+    "transparent_pixels_before": 240035,
+    "alpha_bbox": [
+      70,
+      59,
+      1093,
+      715
+    ],
+    "bytes": 148897
+  },
+  {
+    "file": "assets/products/watch/galaxy-watch9-44mm.png",
+    "original": [
+      700,
+      700
+    ],
+    "output": [
+      618,
+      615
+    ],
+    "border_reference": [
+      255,
+      255,
+      255
+    ],
+    "removed_pixels": 361,
+    "transparent_pixels_before": 262904,
+    "alpha_bbox": [
+      65,
+      56,
+      633,
+      621
+    ],
+    "bytes": 252569
+  },
+  {
+    "file": "assets/products/zflip/galaxy-z-flip8.png",
+    "original": [
+      800,
+      800
+    ],
+    "output": [
+      618,
+      758
+    ],
+    "border_reference": [
+      255,
+      255,
+      255
+    ],
+    "removed_pixels": 420079,
+    "transparent_pixels_before": 0,
+    "alpha_bbox": [
+      178,
+      54,
+      734,
+      750
+    ],
+    "bytes": 185467
+  },
+  {
+    "file": "assets/products/zfold/galaxy-z-fold8-ultra.png",
+    "original": [
+      800,
+      800
+    ],
+    "output": [
+      708,
+      700
+    ],
+    "border_reference": [
+      255,
+      255,
+      255
+    ],
+    "removed_pixels": 231256,
+    "transparent_pixels_before": 0,
+    "alpha_bbox": [
+      76,
+      80,
+      726,
+      722
+    ],
+    "bytes": 168602
+  }
+]
