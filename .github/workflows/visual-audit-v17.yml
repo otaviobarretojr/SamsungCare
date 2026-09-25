@@ -1,4 +1,5 @@
 name: Visual audit PWA v17
+# rerun: clean-assets-v17.1
 
 on:
   push:
