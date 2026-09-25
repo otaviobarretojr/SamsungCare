@@ -1,0 +1,160 @@
+name: Visual audit v17.3
+
+on:
+  push:
+    branches: [v17.3-visual-polish]
+    paths:
+      - '.github/workflows/visual-audit-v17-3.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout v17.3
+        uses: actions/checkout@v4
+        with:
+          ref: v17.3-visual-polish
+
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Render and validate every view
+        run: |
+          python3 -m http.server 4173 >/tmp/http.log 2>&1 &
+          cat > audit.mjs <<'JS'
+          import { chromium } from 'playwright';
+          import fs from 'fs';
+
+          const browser=await chromium.launch({headless:true});
+          const families=['zflip','zfold','s','sfe','a','aentry','tabs','taba','book','bookultra','bookgo','watch','buds'];
+          const cases=[{name:'mobile',width:390,height:844},{name:'desktop',width:1365,height:900}];
+          const report={};
+
+          for(const c of cases){
+            const page=await browser.newPage({viewport:{width:c.width,height:c.height},deviceScaleFactor:1});
+            const errors=[];
+            page.on('pageerror',e=>errors.push(String(e)));
+            await page.goto('http://127.0.0.1:4173/index.html',{waitUntil:'networkidle'});
+            await page.screenshot({path:`audit/${c.name}/home.png`,fullPage:true});
+
+            const home=await page.evaluate(()=>({
+              overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,
+              cards:[...document.querySelectorAll('.family-card')].map(card=>{
+                const media=card.querySelector('.family-media')?.getBoundingClientRect();
+                const body=card.querySelector('.family-body')?.getBoundingClientRect();
+                const img=card.querySelector('img')?.getBoundingClientRect();
+                const title=card.querySelector('h3');
+                return {
+                  id:card.dataset.family,
+                  media:media?.toJSON()||null,
+                  body:body?.toJSON()||null,
+                  img:img?.toJSON()||null,
+                  title:title?.innerText||'',
+                  titleVisible:!!title && title.getBoundingClientRect().height>0,
+                  noOverlap:!!media&&!!body&&body.top>=media.bottom-1
+                };
+              })
+            }));
+
+            const familyMetrics={};
+            for(const id of families){
+              await page.click(`[data-family="${id}"]`);
+              await page.waitForTimeout(80);
+              await page.screenshot({path:`audit/${c.name}/${id}.png`,fullPage:true});
+              const m=await page.evaluate((id)=>({
+                id,
+                overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,
+                heroH:document.querySelector('.family-hero')?.getBoundingClientRect().height||0,
+                artH:document.querySelector('.family-hero-art')?.getBoundingClientRect().height||0,
+                planCount:document.querySelectorAll('.plan-card').length,
+                planRects:[...document.querySelectorAll('.plans-zone > section:not(.club-zone) .plan-card')].map(x=>x.getBoundingClientRect().toJSON()),
+                clubRect:document.querySelector('.club-zone')?.getBoundingClientRect().toJSON()||null,
+                productNatural:[...document.querySelectorAll('.family-hero-art img')].map(i=>[i.naturalWidth,i.naturalHeight])
+              }),id);
+              familyMetrics[id]=m;
+              await page.click('[data-plan]');
+              await page.waitForTimeout(40);
+              await page.screenshot({path:`audit/${c.name}/${id}-modal.png`,fullPage:false});
+              await page.keyboard.press('Escape');
+              await page.click('#homeBtn');
+              await page.waitForTimeout(40);
+            }
+
+            await page.click('#infoBtn');
+            await page.waitForTimeout(40);
+            const help=await page.evaluate(()=>({
+              height:document.querySelector('.modal')?.getBoundingClientRect().height||0,
+              viewport:innerHeight
+            }));
+            await page.screenshot({path:`audit/${c.name}/help.png`,fullPage:false});
+            await page.keyboard.press('Escape');
+
+            report[c.name]={home,families:familyMetrics,help,errors};
+            await page.close();
+          }
+
+          const problems=[];
+          for(const [mode,r] of Object.entries(report)){
+            if(r.home.overflow!==0) problems.push(`${mode}: home overflow ${r.home.overflow}`);
+            for(const card of r.home.cards){
+              if(!card.noOverlap) problems.push(`${mode}: card overlap ${card.id}`);
+              if(!card.titleVisible||!card.title) problems.push(`${mode}: missing title ${card.id}`);
+            }
+            for(const [id,m] of Object.entries(r.families)){
+              if(m.overflow!==0) problems.push(`${mode}: ${id} overflow ${m.overflow}`);
+              if(mode==='desktop' && m.heroH>430) problems.push(`${mode}: ${id} hero too tall ${m.heroH}`);
+              if(mode==='mobile' && m.heroH>570) problems.push(`${mode}: ${id} hero too tall ${m.heroH}`);
+            }
+            if(mode==='mobile' && r.help.height>600) problems.push(`mobile: help modal too tall ${r.help.height}`);
+            if(r.errors.length) problems.push(`${mode}: page errors ${r.errors.join('; ')}`);
+          }
+
+          fs.writeFileSync('audit/report.json',JSON.stringify({report,problems},null,2));
+          console.log(JSON.stringify({problems},null,2));
+          if(problems.length) process.exitCode=2;
+          await browser.close();
+          JS
+          mkdir -p audit/mobile audit/desktop
+          node audit.mjs
+
+      - name: Build contact sheets
+        if: always()
+        run: |
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from PIL import Image,ImageDraw
+          from pathlib import Path
+          for mode in ['mobile','desktop']:
+              files=[p for p in sorted(Path('audit',mode).glob('*.png')) if '-modal' not in p.name and p.name!='help.png']
+              if not files: continue
+              thumbs=[]
+              for p in files:
+                  im=Image.open(p).convert('RGB')
+                  w=300; h=max(1,int(im.height*w/im.width))
+                  im=im.resize((w,h)).crop((0,0,w,min(h,520)))
+                  canvas=Image.new('RGB',(w,im.height+28),'white')
+                  canvas.paste(im,(0,28))
+                  ImageDraw.Draw(canvas).text((8,7),p.stem,fill='black')
+                  thumbs.append(canvas)
+              cols=4 if mode=='desktop' else 3
+              rows=(len(thumbs)+cols-1)//cols
+              cellh=max(x.height for x in thumbs)
+              sheet=Image.new('RGB',(cols*300,rows*cellh),(235,235,235))
+              for i,im in enumerate(thumbs):
+                  sheet.paste(im,((i%cols)*300,(i//cols)*cellh))
+              sheet.save(f'audit/{mode}-contact-sheet.jpg',quality=90)
+          PY
+
+      - name: Upload audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: samsungcare-v17-3-visual-audit
+          path: audit/
+          retention-days: 2
