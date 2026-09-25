@@ -1,0 +1,55 @@
+name: Live production smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/live-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for public v17.2
+        run: |
+          set -e
+          URL="https://otaviobarretojr.github.io/SamsungCare/"
+          for i in $(seq 1 20); do
+            BODY="$(curl -fsSL --max-time 15 "$URL" || true)"
+            if echo "$BODY" | grep -q "Galaxy Experience v17.2"; then
+              echo "v17.2 is live"
+              exit 0
+            fi
+            echo "waiting for deployment ($i/20)"
+            sleep 5
+          done
+          echo "v17.2 not visible on public URL"
+          exit 1
+
+      - name: Check live service worker
+        run: |
+          curl -fsSL https://otaviobarretojr.github.io/SamsungCare/sw.js -o /tmp/sw.js
+          grep -q "care-galaxy-v17-2-assets1" /tmp/sw.js
+          grep -q "skipWaiting" /tmp/sw.js
+          grep -q "clients.claim" /tmp/sw.js
+          echo "service worker OK"
+
+      - name: Verify transparent S26 asset from production
+        run: |
+          python -m pip install --quiet pillow requests
+          python - <<'PY'
+          from io import BytesIO
+          from PIL import Image
+          import requests
+          url='https://otaviobarretojr.github.io/SamsungCare/assets/products/s/galaxy-s26-ultra.png'
+          r=requests.get(url,timeout=20)
+          r.raise_for_status()
+          im=Image.open(BytesIO(r.content)).convert('RGBA')
+          amin,amax=im.getchannel('A').getextrema()
+          assert amin==0 and amax==255,(im.size,(amin,amax))
+          assert im.width>=600 and im.height>=600,im.size
+          print('S26 production asset',im.size,'alpha',(amin,amax),len(r.content))
+          PY
