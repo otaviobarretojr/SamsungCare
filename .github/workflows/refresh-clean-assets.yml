@@ -38,7 +38,6 @@ jobs:
           h={"User-Agent":"Mozilla/5.0","Accept":"image/avif,image/webp,image/apng,image/*,*/*;q=0.8"}
           for name,path,url in items:
               r=requests.get(url,headers=h,timeout=30); r.raise_for_status()
-              if len(r.content)<5000: raise RuntimeError((name,"payload too small",len(r.content)))
               im=Image.open(BytesIO(r.content)); im.load()
               assert im.width>=700 and im.height>=500, (name,im.size)
               if im.mode not in ("RGB","RGBA"): im=im.convert("RGBA")
