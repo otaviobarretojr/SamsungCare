@@ -5,3 +5,8 @@
 @media(max-width:350px){.family-grid{grid-template-columns:1fr}.quick-links{grid-template-columns:1fr}.family-card{grid-template-columns:112px 1fr;grid-template-rows:1fr}.product-stage{min-height:110px}.family-body{align-self:center}}
 
 @media(min-width:901px){.club-zone{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,360px);gap:28px;align-items:stretch}.club-zone .club-head{margin-bottom:0;flex-direction:column;justify-content:space-between}.club-zone .plans-grid{grid-template-columns:1fr}.plans-grid.plan-count-4{grid-template-columns:repeat(4,minmax(0,1fr))}.plans-grid.plan-count-5{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Family-specific framing for source renders with extra whitespace */
+.family-card .product-bookgo img{transform:scale(1.72);transform-origin:center}
+.family-hero-art .product-bookgo img{transform:scale(1.34);transform-origin:center}
+@media(max-width:600px){.family-card .product-bookgo img{transform:scale(1.82)}.family-hero-art .product-bookgo img{transform:scale(1.38)}}
