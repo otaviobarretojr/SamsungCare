@@ -1,5 +1,5 @@
 name: Visual audit PWA v17
-# rerun: final-share-v17.1
+# rerun: final-bookgo-framing-v17.1
 
 on:
   push:
