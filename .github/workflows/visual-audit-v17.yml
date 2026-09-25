@@ -1,5 +1,5 @@
 name: Visual audit PWA v17
-# rerun: clean-assets-v17.1
+# rerun: final-share-v17.1
 
 on:
   push:
@@ -61,13 +61,17 @@ jobs:
             await page.click('[data-plan="combo"]');
             await page.waitForTimeout(100);
             await page.screenshot({path:`audit/${c.name}_modal.png`,fullPage:false});
+            await page.click('#shareBtn');
+            await page.waitForSelector('.share-preview',{state:'visible',timeout:10000});
+            const share=await page.evaluate(()=>{const i=document.querySelector('.share-preview');return {w:i.naturalWidth,h:i.naturalHeight,srcPrefix:i.src.slice(0,20)}});
+            await page.locator('.share-preview').screenshot({path:`audit/${c.name}_share.png`});
             await page.keyboard.press('Escape');
             await page.click('#homeBtn');
             await page.waitForTimeout(120);
             await page.click('[data-family="zfold"]');
             await page.waitForTimeout(160);
             await page.screenshot({path:`audit/${c.name}_zfold.png`,fullPage:true});
-            metrics[c.name]={home,s:sMetrics,errors};
+            metrics[c.name]={home,s:sMetrics,share,errors};
             await page.close();
           }
           fs.writeFileSync('audit/metrics.json',JSON.stringify(metrics,null,2));
