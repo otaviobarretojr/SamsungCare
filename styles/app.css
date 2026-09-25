@@ -10,3 +10,252 @@
 .family-card .product-bookgo img{transform:scale(1.08);transform-origin:center}
 .family-hero-art .product-bookgo img{transform:scale(1.06);transform-origin:center}
 @media(max-width:600px){.family-card .product-bookgo img{transform:scale(1.12)}.family-hero-art .product-bookgo img{transform:scale(1.08)}}
+
+
+/* v17.3 — visual consistency polish */
+.family-card{
+  grid-template-rows:170px auto;
+  min-height:286px;
+}
+.family-media{
+  position:relative;
+  height:170px;
+  min-height:0;
+  overflow:hidden;
+  background:#fff;
+}
+.family-media .product-stage{
+  width:100%;
+  height:100%;
+  min-height:0;
+}
+.family-media .product-stage img{
+  padding:14px 18px;
+}
+.family-body{
+  position:relative;
+  z-index:2;
+  min-height:116px;
+  background:#fff;
+  border-top:1px solid rgba(0,0,0,.035);
+}
+.family-body h3{
+  line-height:1.08;
+}
+.family-model{
+  line-height:1.35;
+}
+
+.family-hero{
+  min-height:390px;
+  grid-template-columns:minmax(0,1.04fr) minmax(360px,.96fr);
+}
+.family-hero-copy{
+  padding:40px 44px;
+}
+.family-hero-copy h1{
+  font-size:48px;
+  margin:10px 0 14px;
+}
+.family-hero-copy p{
+  margin:0;
+  max-width:540px;
+}
+.family-hero-art{
+  height:390px;
+  min-height:390px;
+}
+.family-hero-art .product-stage{
+  width:100%;
+  height:100%;
+  min-height:0;
+}
+.family-hero-art .product-stage img{
+  padding:28px 34px;
+  max-width:100%;
+  max-height:100%;
+}
+
+/* Portrait accessories need visual breathing room, but no extra hero height. */
+.family-hero-watch .family-hero-art .product-stage img,
+.family-hero-buds .family-hero-art .product-stage img{
+  padding:34px 72px;
+}
+
+/* Premium block: denser, more informative, less empty. */
+.club-zone{
+  padding:24px;
+}
+.club-head{
+  gap:14px;
+}
+.club-benefits{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+.club-benefits span{
+  display:inline-flex;
+  align-items:center;
+  min-height:32px;
+  padding:0 11px;
+  border-radius:999px;
+  background:#1d1d1d;
+  border:1px solid #2c2c2c;
+  color:#ededed;
+  font-size:11px;
+  font-weight:800;
+}
+.club-zone .plan-card{
+  min-height:286px;
+}
+
+/* Center five-plan layouts instead of leaving a 3+2 ragged row. */
+@media(min-width:901px){
+  .plans-grid.plan-count-5{
+    grid-template-columns:repeat(6,minmax(0,1fr));
+  }
+  .plans-grid.plan-count-5 .plan-card{
+    grid-column:span 2;
+  }
+  .plans-grid.plan-count-5 .plan-card:nth-child(4){
+    grid-column:2 / span 2;
+  }
+  .plans-grid.plan-count-5 .plan-card:nth-child(5){
+    grid-column:4 / span 2;
+  }
+  .plans-grid.plan-count-4{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+  .modal.modal-compact{
+    width:min(560px,100%);
+  }
+}
+
+/* Secondary/legal copy remains legible on store devices. */
+.commercial-note{
+  color:#626262;
+  font-size:13px;
+  line-height:1.55;
+  max-width:980px;
+}
+.footer{
+  color:#707070;
+  font-size:13px;
+}
+
+@media(max-width:900px){
+  .family-hero{
+    grid-template-columns:1fr;
+    min-height:0;
+  }
+  .family-hero-copy{
+    padding:28px 24px 14px;
+  }
+  .family-hero-copy h1{
+    font-size:40px;
+  }
+  .family-hero-art,
+  .family-hero-art .product-stage{
+    height:300px;
+    min-height:300px;
+  }
+}
+
+@media(max-width:600px){
+  .family-card{
+    grid-template-rows:138px auto;
+    min-height:0;
+  }
+  .family-media{
+    height:138px;
+  }
+  .family-media .product-stage img{
+    padding:10px 12px;
+  }
+  .family-body{
+    min-height:106px;
+    padding:14px 14px 16px;
+  }
+  .family-body h3{
+    margin:7px 0 5px;
+  }
+
+  .family-hero-copy{
+    padding:22px 20px 10px;
+  }
+  .family-hero-copy h1{
+    font-size:36px;
+    line-height:1.02;
+    margin:8px 0 10px;
+  }
+  .family-hero-copy p{
+    font-size:14px;
+    line-height:1.42;
+  }
+  .model-chip{
+    font-size:12px;
+    padding:8px 11px;
+    margin-top:10px;
+  }
+  .family-hero-art,
+  .family-hero-art .product-stage{
+    height:250px;
+    min-height:250px;
+  }
+  .family-hero-art .product-stage img{
+    padding:18px 24px;
+  }
+  .family-hero-watch .family-hero-art .product-stage img,
+  .family-hero-buds .family-hero-art .product-stage img{
+    padding:24px 62px;
+  }
+
+  .club-zone{
+    padding:18px 14px;
+  }
+  .club-benefits{
+    margin-top:12px;
+    gap:6px;
+  }
+  .club-benefits span{
+    min-height:30px;
+    font-size:10px;
+    padding:0 9px;
+  }
+
+  .modal.modal-compact{
+    height:auto;
+    min-height:0;
+    max-height:70dvh;
+    padding-bottom:24px;
+  }
+  .modal.modal-compact .modal-sub{
+    margin-bottom:4px;
+  }
+
+  .search{
+    padding:14px 18px;
+  }
+  .commercial-note{
+    font-size:12px;
+    line-height:1.5;
+  }
+}
+
+@media(max-width:350px){
+  .family-card{
+    grid-template-columns:120px 1fr;
+    grid-template-rows:1fr;
+    min-height:124px;
+  }
+  .family-media{
+    height:124px;
+  }
+  .family-body{
+    min-height:124px;
+    border-top:0;
+    border-left:1px solid rgba(0,0,0,.035);
+  }
+}
