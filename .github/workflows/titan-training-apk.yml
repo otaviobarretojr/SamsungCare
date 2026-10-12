@@ -1,0 +1,67 @@
+name: TITAN Training Android APK
+on:
+  push:
+    branches:
+      - titan-training-apk
+    paths:
+      - 'titan-android-source.b64'
+      - '.github/workflows/titan-training-apk.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout isolated build branch
+        uses: actions/checkout@v4
+      - name: Extract TITAN Android project
+        shell: bash
+        run: |
+          mkdir -p titan-android
+          base64 -d titan-android-source.b64 | tar -xJ -C titan-android
+          test -f titan-android/app/src/main/assets/data.js
+          test -f titan-android/app/src/main/java/br/com/titan/training/MainActivity.java
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install Android 35
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Build debug APK
+        working-directory: titan-android
+        run: gradle --no-daemon --stacktrace :app:assembleDebug
+      - name: Verify signed installable APK
+        shell: bash
+        run: |
+          APK=titan-android/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose "$APK"
+          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK" | head -14
+          unzip -l "$APK" | grep -E 'assets/(app.js|data.js|index.html)'
+          cp "$APK" TITAN-Training-v1.1-debug.apk
+          sha256sum TITAN-Training-v1.1-debug.apk
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TITAN-Training-v1.1-APK
+          path: TITAN-Training-v1.1-debug.apk
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish APK to isolated branch
+        continue-on-error: true
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add TITAN-Training-v1.1-debug.apk
+          git commit -m 'TITAN: publish compiled Android debug APK [skip ci]'
+          git push origin HEAD:titan-training-apk
